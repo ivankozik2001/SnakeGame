@@ -1,11 +1,62 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
+using System.Net.Http.Headers;
 
+public struct Point
+{
+    public int x;
+    public int y;
+    
+    public Point(int x_, int y_)
+    {
+        x = x_;
+        y = y_;
+    }
+
+    public static Point operator +(Point first, Point second)
+    {
+        return new Point(first.x + second.x, first.y + second.y);
+    }
+    
+    public static bool operator ==(Point first, Point second)
+    {
+        return first.x == second.x && first.y == second.y;
+    }
+
+    public static bool operator !=(Point first, Point second)
+    {
+        return first.x != second.x || first.y != second.y;
+    }
+}
 public class Game
 {
-    private int x = 5;
-    private int y = 5;
+    Point food;
+    Point snakeHead;
+    Random random = new Random();
+    public Game()
+    {
+        snakeHead.x = 5;
+        snakeHead.y = 5;
+
+    
+    }
+
     private char[,] field = new char[10, 10];
-    private Random food;
+
+    private int foodX;
+    private int foodY;
+
+    public Point genRandom()
+    {
+        return new Point(random.Next(1, field.GetLength(0) - 2), random.Next(1, field.GetLength(0) - 2));
+    }
+
+    public void GenerateFood()
+    {
+        snakeHead = genRandom();
+        food = genRandom();
+        while (snakeHead == food) food = genRandom();
+    }
     public void FillTheField()
     {
         Console.Clear();
@@ -13,9 +64,17 @@ public class Game
         {
             for (int j = 0; j < field.GetLength(1); j++)
             {
-                if (j == x && i == y) field[i, j] = '@';
+
+                if (j == snakeHead.x && i == snakeHead.y) field[i, j] = '@';
                 else if (i == 0 || j == 0 || i == field.GetLength(0) - 1 || j == field.GetLength(1) - 1) field[i, j] = '#';
-                else field[i, j] = ' ';
+                else
+                {
+                    if (i == foodX && j == foodY)
+                    {
+                        field[i, j] = '*';
+                    }
+                    else field[i, j] = ' ';
+                }
 
                 Console.Write(field[i, j]);
             }
@@ -27,8 +86,8 @@ public class Game
         switch (direction)
         {
             case 'w':
-                y -= 1;
-                if (y < 1)
+                snakeHead.y -= 1;
+                if (snakeHead.y < 1)
                 {
                     Console.WriteLine("Game Over!");
                     return false;
@@ -36,8 +95,8 @@ public class Game
                 FillTheField();
                 break;
             case 's':
-                y += 1;
-                if (y > field.GetLength(0)-2)
+                snakeHead.y += 1;
+                if (snakeHead.y > field.GetLength(0) - 2)
                 {
                     Console.WriteLine("Game Over!");
                     return false;
@@ -45,8 +104,8 @@ public class Game
                 FillTheField();
                 break;
             case 'a':
-                x -= 1;
-                if (x < 1)
+                snakeHead.x -= 1;
+                if (snakeHead.x < 1)
                 {
                     Console.WriteLine("Game Over!");
                     return false;
@@ -54,8 +113,8 @@ public class Game
                 FillTheField();
                 break;
             case 'd':
-                x += 1;
-                if (x > field.GetLength(1)-2)
+                snakeHead.x += 1;
+                if (snakeHead.x > field.GetLength(1) - 2)
                 {
                     Console.WriteLine("Game Over!");
                     return false;

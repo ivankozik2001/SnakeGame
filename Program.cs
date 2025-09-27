@@ -3,6 +3,7 @@
     public static void Main(string[] args)
     {
         Game game = new Game();
+        game.GenerateFood();
         game.FillTheField();
 
         bool gameProcess = true;
