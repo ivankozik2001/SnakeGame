@@ -5,10 +5,16 @@
         Game game = new Game();
         game.FillTheField();
 
-        while (true)
+        bool gameProcess = true;
+
+        while (gameProcess)
         {
-            char button = Console.ReadKey().KeyChar;
-            game.MovingThePerson(button);
+            char button = Console.ReadKey(true).KeyChar;
+            if (!game.MovingThePerson(button))
+            {
+                gameProcess = false;
+            }
         }
+
     }
 }

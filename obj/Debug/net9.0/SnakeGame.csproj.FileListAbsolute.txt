@@ -12,3 +12,4 @@ C:\Users\STEWIE\Documents\Leetcode wath VS Code\SnakeGame\obj\Debug\net9.0\refin
 C:\Users\STEWIE\Documents\Leetcode wath VS Code\SnakeGame\obj\Debug\net9.0\SnakeGame.pdb
 C:\Users\STEWIE\Documents\Leetcode wath VS Code\SnakeGame\obj\Debug\net9.0\SnakeGame.genruntimeconfig.cache
 C:\Users\STEWIE\Documents\Leetcode wath VS Code\SnakeGame\obj\Debug\net9.0\ref\SnakeGame.dll
+C:\Users\STEWIE\Documents\Leetcode wath VS Code\SnakeGame\obj\Debug\net9.0\SnakeGame.sourcelink.json
